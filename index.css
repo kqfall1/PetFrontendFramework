@@ -1,0 +1,141 @@
+html { color: #ff6f61;  }
+
+body 
+{
+    height: 315%; 
+	background-color: #0a192f; 
+	font-family: Courier New, Trebuchet MS, Georgia;
+	margin: 0 auto; 
+}
+a 
+{ 
+	color: #aeefff; 
+	font-style: italic; 
+}
+
+header
+{
+	height: 5%; 
+	padding: 0.25em;  
+	font-family: Trebuchet MS, Georgia, Courier New;
+	border-bottom: 2px solid #aeefff; 
+	text-align: center; 
+	font-size: 16pt; 
+}
+header h1 
+{
+	margin: 0.5em 0 0 0; 
+	color: #dda0dd; 
+}
+
+main 
+{
+	text-align: center; 
+	height: 90%; width: 100%; 
+}
+main aside 
+{ 
+	width: 50%; height: 38.5%; 
+	margin: 1.75em 0 0 0;
+} 
+#catImgSidebar { float: left;  }
+#dogImgSidebar { float: right;  }
+main aside figure
+{
+	width: 95%; 
+	margin: 0 auto;
+}
+main aside figure h2 
+{
+	width: 100%; 
+	margin: 0 auto 0.5em auto;
+}	
+main aside figure img 
+{
+	width: 100%; height: 25em;
+	border: 2px solid #aeefff;
+	margin: 0 auto; 
+}
+main aside figure figcaption
+{
+	margin: 1em auto 0 auto; 
+	font-family: Trebuchet MS, Georgia, Courier New;
+}
+main aside figure button 
+{
+	width: 15em; height: 4em;
+	margin: 1.5em 0 0 0; 
+	padding: 1.5em;background-color: #f4c95d;
+	font-weight: bold; 
+	font-family: Century Gothic, Trebuchet MS, Georgia, Courier New;
+	font-size: 12pt; 
+}
+main aside figure button:focus, main figure button:hover
+{
+	background-color: #b89746;
+	cursor: pointer; 
+}
+#dogImgBtn { margin: 2.75em 0 0 0; }
+main section 
+{ 
+	border: 2px solid #aeefff; 
+	width: 95%; 
+	margin: 0 auto; 
+}
+main section p, label { font-family: Trebuchet MS, Georgia, Courier New; } 
+main section button 
+{
+	width: 10em; height: 6em; 
+	padding: 1.5em; 
+	background-color: #f4c95d;
+	font-weight: bold; 
+	font-family: Century Gothic, Trebuchet MS, Georgia, Courier New;
+	font-size: 10pt; 
+}
+main section button:hover, main section button:focus
+{
+	background-color: #b89746;
+	cursor: pointer; 
+}
+#meowFacts 
+{ 
+	height: 25%;  
+	clear: both; 
+}
+#meowFactsTitle { margin: 1em 0 0 0;  }
+#meowFactsP 
+{ 
+	color: #dda0dd; 
+	margin: 1em 1em; 
+}
+#breedInfo
+{ 
+	height: 35%;
+	margin: 1.75em auto 0 auto; 
+}
+main section aside
+{
+	margin: 0 0;
+	width: 50%; height: 103%; 
+}
+#breedInfoSidebar { float: left;  }
+#breedImgSidebar { float: right;  }
+#breedInfoP 
+{ 
+	color: #dda0dd; 
+	padding: 0.25em; 
+}
+#breedFetchBtn { margin-top: 0.5em; }
+#breedImgSidebar figure 
+{ 
+	width: 90%; 
+	margin: 4em 0; 
+}
+
+footer
+{
+	margin: 1em 0; 
+	text-align: center; 
+	width: 100%; 
+	color: #dda0dd;
+}

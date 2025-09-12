@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<!-- Quinn Keenan, 301504914 - Assignment 5, Cat Appeciation Page - 25/07/2025-->
+		<title>Pet Appreciation Page</title>
+		<link rel="stylesheet" href="index.css"/>
+		<script src="Scripts/index.js" defer></script>
+		<script src="Scripts/PetComponentUIBase.js" defer></script>
+		<script src="Scripts/PetImg.js" defer></script>
+		<script src="Scripts/PetFigureUI.js" defer></script>
+		<script src="Scripts/PetSectionUI.js" defer></script>
+		<script src="Scripts/PetSectionImgUI.js" defer></script>
+		<script src="Scripts/PetType.js" defer></script>		
+	</head>
+	<body>
+		<header>
+			<h1>Pet Appreciation Page</h1>
+		</header>
+		<main>
+			<aside id="catImgSidebar">
+				<figure>
+					<h2>Cat Photos</h2>
+					<img id="catImg" src="" alt="Loading..." />
+					<figcaption id="catImgCaption">Utilizes TheCatAPI (<a href="https://developers.thecatapi.com/view-account/ylX4blBYT9FaoVd6OhvR?report
+					=FJkYOq9tW">https://developers.thecatapi.com/view-account/ylX4blBYT9FaoVd6OhvR?report=FJkYOq9tW</a>)</figcaption>
+					<button id="catImgBtn">New Kitty Photo!</button>
+				</figure>
+			</aside>
+			<aside id="dogImgSidebar"> 
+				<figure>
+					<h2>Dog Photos</h2>
+					<img id="dogImg" src="" alt="Loading..." />
+					<figcaption id="dogImgCaption">Utilizes the Dogs API (<a href="https://dog.ceo/api/breeds/image/random">https://dog.ceo/api/breeds/image/random</a>)</figcaption>
+					<button id="dogImgBtn">New Doggy Photo!</button>
+				</figure>
+			</aside>
+			<section id="meowFacts">
+				<h2 id="meowFactsTitle">Meow Facts</h2>
+				<label for="meowFactsInput">Enter the number of Meow Facts you would like to retrieve:</label>
+				<input id="meowFactsInput" type="number" min="1" max="4" placeholder="1-4" />
+				<button id="meowFactsBtn">Retrieve Meow Facts!</button>
+				<p id="meowFactsP"></p>
+				<p>Utilizes the MeowFacts API (<a href="https://meowfacts.herokuapp.com/">https://meowfacts.herokuapp.com/</a>)</p>
+			</section>
+			<section id="breedInfo">
+				<aside id="breedInfoSidebar">
+					<h2>Dog Breed Information Fetcher</h2>
+					<label for="breedInput">Enter the dog breed you would like to fetch information about:</label>
+					<input id="breedInput" type="text" placeholder="Bernese Mountain Dog" />
+					<button id="breedFetchBtn">Fetch Breed Information!</button>
+					<p id="breedInfoP"></p>
+					<p>Utilizes TheDogAPI (<a href="https://api.thedogapi.com/v1/">https://api.thedogapi.com/v1/</a>)</p>
+				</aside>
+				<aside id="breedImgSidebar">
+					<figure>
+						<img id="breedImg" src="" alt="" />
+						<figcaption id="breedImgCaption"></figcaption>
+					</figure>
+				</aside>
+			</section>
+		</main>
+		<footer><h6>Copyright &copy; Quinn Keenan, 301504914, COMP125-002 - Client-Side Web Development - Assignment 5</h6></footer>
+	</body>
+</html>
