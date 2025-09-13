@@ -13,8 +13,25 @@ class PetSectionImgUI extends PetSectionUI
 	get img_API_URI() { return this.#img_API_URI; } //Incomplete, needs a referenceImgID appeneded to it.
 	get petImg() { return this.#petImg; }
 	
+	static determineArticleForStr(str)
+	{
+		let firstChar; 
+		
+		if (typeof str != "string" || str.length == 0)
+		{ 
+			throw new Error(`Invalid argument passed to determineArticleForStr: str - Expected a string, got ${typeof str}.`);
+			return; 
+		}
+		
+		firstChar = str.toUpperCase()[0]; 
+			
+		if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I' || firstChar == 'O' || firstChar == 'U') { return `An ${str}`; }
+		else { return `A ${str}`; }
+	}
+	
 	async fetchDataFromAPI()
 	{
+		let breedKeysAndValues; 
 		let dataItems = [];
 		let referenceImgID; 
 		
@@ -40,88 +57,68 @@ class PetSectionImgUI extends PetSectionUI
 			return; 
 		} 
 		
-		referenceImgID = this.handleBreedNodes(Object.entries(dataItems)); 
+		breedKeysAndValues = Object.entries(dataItems[0]);
+		referenceImgID = this.handleBreedNodes(breedKeysAndValues); 
 		await this.fetchImgFromAPI(referenceImgID); 
-	}
-	
-	static determineArticleForStr(str)
-	{
-		let firstChar; 
-		
-		if (typeof str != "string" || str.length == 0)
-		{ 
-			throw new Error(`Invalid argument passed to determineArticleForStr: str - Expected a string, got ${typeof str}.`);
-			return; 
-		}
-		
-		firstChar = str.toUpperCase()[0]; 
-			
-		if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I' || firstChar == 'O' || firstChar == 'U') { return `An ${str}`; }
-		else { return `A ${str}`; }
+		this.inputNodeContent = "";
 	}
 	
 	async fetchImgFromAPI(referenceImgID) 
 	{	
-		let data; 
+		let imgDataItems = await this._fetchDataFromAPI(`${this.img_API_URI}${referenceImgID}`);
 		
-		data = await this._fetchDataFromAPI(`${this.img_API_URI}${referenceImgID}`);
-		
-		try { this.parseImgData(dataItems);  }
+		try { this.parseImgData(imgDataItems); }
 		catch (fetchError) { throw new Error(`Failed to fetch data from "${this.img_API_URI}" because of the following error: ${fetchError}`); }
 	}
 	
 	static formatOutput(str) { return str.replace(/_/g, " ").toUpperCase(); }
 	
-	handleBreedNodes(dataItems)
+	handleBreedNodes(breedKeysAndValues)
 	{
-		let innerKey; 
-		let key; 
 		let nestedEntries; 
 		let nestedKey; 
-		let nestedValue;
-		let nestedValuesStr;  
-		let referenceImgID; 
-		let value; 
+		let nestedValue; 
+		let outerKey; 
+		let outerValue; 
+		let referenceImgID; //An identifier for the image corresponding to the breed information.
+		let valuesStr;  
 		
-		this.textNodeContent = ""; 
-		
-		for ([key, value] of dataItems)
+		for ([outerKey, outerValue] of breedKeysAndValues)
 		{ 
-			nestedValuesStr = "";
-			
-			if (key == "image") { continue; }  
-			else if (key === "reference_image_id") //An identifier for the image corresponding to the breed information.
+			if (outerKey === "reference_image_id") 
 			{ 
-				referenceImgID = value;  
+				referenceImgID = outerValue;  
 				continue;
 			} 
-			else if (typeof value == "object" && value != null) //If the value of the key is an object, there is nested data.
+			else if (outerKey === "life_span" || outerKey === "temperament") { valuesStr = outerValue }
+			else if (outerKey != "image" && typeof outerValue == "object" && outerValue != null) 
 			{ 
-				nestedEntries = Object.entries(value);
-					
-				for ([nestedKey, nestedValue] of nestedEntries) 
-				{ 
-					if (key == "height" && nestedKey == "imperial") { nestedValuesStr += `${nestedValue} inches<br>`; }
-					else if (key == "weight" && nestedKey == "imperial" ) { nestedValuesStr += `${nestedValue}lbs<br>`; }
-					else if (key ==="height" && nestedKey == "metric") { nestedValuesStr += `${nestedValue}cm<br>`; }
-					else if (key == "weight" && nestedKey == "metric") { nestedValuesStr += `${nestedValue}kg<br>`; }
-				}
+				nestedEntries = Object.entries(outerValue);
+				valuesStr = ""; 
 				
-				value = nestedValuesStr;
+				for ([nestedKey, nestedValue] of nestedEntries) //Height and weight are the only nested breed keys other than image
+				{ 
+					if (outerKey == "height" && nestedKey == "imperial") { valuesStr += `${nestedValue} inches<br>`; }
+					else if (outerKey == "weight" && nestedKey == "imperial" ) { valuesStr += `${nestedValue} lbs<br>`; }
+					else if (outerKey ==="height" && nestedKey == "metric") { valuesStr += `${nestedValue} cm<br>`; }
+					else if (outerKey === "weight" && nestedKey == "metric") { valuesStr += `${nestedValue} kg<br>`; } 
+				}
 			} 
+			else 
+			{ 
+				continue; 
+			}
 			
-			console.log(`${key}: ${value}`);
-			this.textNode.innerHTML += PetSectionImgUI.formatOutput(`${key}: ${value}<br>`);
+			this.textNode.innerHTML += PetSectionImgUI.formatOutput(`${outerKey}: ${valuesStr}<br>`);
 		}
 		
-		console.log(referenceImgID);
 		return referenceImgID; 
 	}
 	
-	parseImgData(dataItems)
+	parseImgData(imgDataItems)
 	{
-		this.petImg.alt = PetSectionImgUI.determineArticleForStr(this.inputTextContent);
+		this.petImg.alt = PetSectionImgUI.determineArticleForStr(this.inputNodeContent);
 		this.petImg.captionContent = this.alt;
-		this.petImg.src = dataItems.url;
+		this.petImg.src = imgDataItems.url;
 	}
 }

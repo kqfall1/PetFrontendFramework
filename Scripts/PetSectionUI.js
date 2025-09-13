@@ -19,7 +19,7 @@ class PetSectionUI extends PetComponentUIBase
 	set inputNodeContent(value) 
 	{ 
 		this.#inputNodeContent = value; 
-		this.#inputNode.textContent = value; 
+		this.#inputNode.value = value; 
 	}
 	
 	get textNode() { return this.#textNode; }
@@ -74,7 +74,6 @@ class PetSectionUI extends PetComponentUIBase
 	
 	prepareUIForFetch()
 	{
-		this.inputNodeContent = ""; 
 		this.textNodeContent = PetComponentUIBase.LOADING_LABEL; 
 		this.textNode.innerHTML = ""; 
 	}
